@@ -1,0 +1,44 @@
+# Simple number guessing game using Python
+
+import random
+
+def generate_random_number():
+    return random.randint(1, 100)  # Generate a random number between 1 and 100
+
+def get_player_guess():
+    try:
+        guess = int(input("Enter your guess (between 1 and 100): "))
+        return guess
+    except ValueError:
+        print("Invalid input. Please enter a valid number.")
+        return get_player_guess()
+
+def check_guess(secret_number, guess):
+    if guess < secret_number:
+        return "low"
+    elif guess > secret_number:
+        return "high"
+    else:
+        return "correct"
+
+def play_game():
+    print("Welcome to the Guessing Game!")
+    secret_number = generate_random_number()
+    attempts = 0
+
+    while True:
+        player_guess = get_player_guess()
+        attempts += 1
+
+        result = check_guess(secret_number, player_guess)
+
+        if result == "low":
+            print("Your guess is too low. Try again.")
+        elif result == "high":
+            print("Your guess is too high. Try again.")
+        else:
+            print(f"Congratulations! You guessed the correct number {secret_number} in {attempts} attempts.")
+            break
+
+if __name__ == "__main__":
+    play_game()
